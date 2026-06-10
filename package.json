@@ -1,0 +1,12 @@
+{
+  "name": "cahtiks",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Crady",
+  "type": "module",
+  "main": "/src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
