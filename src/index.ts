@@ -9,11 +9,11 @@ export const fastify = Fastify({
   logger: true
 })
 
-const pg = knex({
-  client: "pg",
-  connection: config.db.db_url,
-  searchPath: ['knex', 'public']
-})
+// const pg = knex({
+//   client: 'pg',
+//   connection: config.db.db_url,
+//   searchPath: ['knex', 'public']
+// })
 
 // Declare a route
 fastify.get('/', async function handler (request, reply) {
