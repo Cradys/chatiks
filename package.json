@@ -7,7 +7,8 @@
   "type": "module",
   "main": "/src/index.ts",
   "scripts": {
-    "server": "npx tsc && node dist/index.js"
+    "server": "npx tsc && node dist/index.js",
+    "migrate:latest": "npx tsx ./node_modules/knex/bin/cli.js migrate:latest"
   },
   "dependencies": {
     "fastify": "^5.8.5",
@@ -16,6 +17,8 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^25.9.3"
+    "@types/node": "^25.9.3",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.22.4"
   }
 }
