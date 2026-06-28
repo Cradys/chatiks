@@ -9,23 +9,21 @@ const authBody = {
     password: { type: 'string' },
   },
   additionalProperties: false
-} as const as JSONSchema
+} as const satisfies JSONSchema
 
 const authRes = {
   200:{
     type: 'object',
     properties: {
       token: { type: 'string' }
-    } 
+    },
+    additionalProperties: false
   } 
 } as const satisfies Record<any, JSONSchema>
 
-const authSchema = {
+export const authSchema = {
   body: authBody,
-  querystring: authBody,
-  params: authBody,
-  headers: authBody,
   response: authRes
 } as const satisfies FastifySchema
 
-export type AuthSchema = CreateMethodType<typeof authSchema>
+export type AuthSchemaType = CreateMethodType<typeof authSchema>

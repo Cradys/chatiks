@@ -4,26 +4,14 @@ import { schemas } from './schemas.js'
 import { config } from './config.js'
 import { auth, createUser } from './auth_handler.js'
 import { AuthBody } from './json_schemas/create_users.js'
+import { authSchema } from './json_schemas/auth.js'
 
 
 export const fastify = Fastify({
   logger: true
 }).withTypeProvider<JsonSchemaToTsProvider>()
 
-
-const body = {
-  type: 'object',
-  properties: {
-    login: { type: 'string' },
-    password: { type: 'string' }
-  }
-} as const
-
-const schema = {
-  body: body
-} as const
-
-fastify.post<{Body:AuthBody}>('/auth', {schema}, auth)
+fastify.post('/auth', {schema: authSchema}, auth)
 
 // Declare a route
 fastify.get('/', async function handler (request, reply) {
