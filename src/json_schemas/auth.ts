@@ -1,31 +1,31 @@
-import { FromSchema, JSONSchema } from "json-schema-to-ts"
-import { FastifyReply } from "fastify/types/reply.js"
-import { FastifySchema, RouteHandler } from "fastify"
+import { JSONSchema } from "json-schema-to-ts"
+import { FastifySchema } from "fastify"
+import { CreateMethodType } from "./type_helper.js"
 
-const authBody: JSONSchema = {
+const authBody = {
   type: 'object',
   properties: {
     login: { type: 'string' },
-    password: { type: 'string' }
-  }
-} as const
+    password: { type: 'string' },
+  },
+  additionalProperties: false
+} as const as JSONSchema
 
-const authRes: JSONSchema = {
-  type: 'object',
-  properties: {
-    response: {
-      type: 'object',
-      properties: {
-        token: { type: 'string' }
-      }
-    }
-  }
-} as const
+const authRes = {
+  200:{
+    type: 'object',
+    properties: {
+      token: { type: 'string' }
+    } 
+  } 
+} as const satisfies Record<any, JSONSchema>
 
-
-const authSchema: FastifySchema = {
+const authSchema = {
   body: authBody,
+  querystring: authBody,
+  params: authBody,
+  headers: authBody,
   response: authRes
-} as const
+} as const satisfies FastifySchema
 
-export type AuthSchema = FromSchema<typeof authSchema>w
+export type AuthSchema = CreateMethodType<typeof authSchema>
