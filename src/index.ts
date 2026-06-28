@@ -23,7 +23,7 @@ const schema = {
   body: body
 } as const
 
-fastify.post('/auth', {schema}, auth)
+fastify.post<{Body:AuthBody}>('/auth', {schema}, auth)
 
 // Declare a route
 fastify.get('/', async function handler (request, reply) {
