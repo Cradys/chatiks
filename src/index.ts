@@ -3,10 +3,11 @@ import { JsonSchemaToTsProvider, FastifyPluginAsyncJsonSchemaToTs } from '@fasti
 import { schemas } from './schemas.js'
 import { config } from './config.js'
 import { auth, createUser } from './auth_handler.js'
-import { AuthBody } from './json_schemas/create_users.js'
+import { createUserSchema } from './json_schemas/create_users.js'
 import { authSchema } from './json_schemas/auth.js'
 
-
+//ajv options with additionalProperies
+//no need to write in every schama
 export const fastify = Fastify({
   logger: true
 }).withTypeProvider<JsonSchemaToTsProvider>()
@@ -19,7 +20,7 @@ fastify.get('/', async function handler (request, reply) {
 })
 
 // fastify.post('/api/login', schemas.auth , auth)
-fastify.post('/api/users', schemas.create_users, createUser)
+fastify.post('/api/users', {schema: createUserSchema}, createUser)
 
 // Run the server!
 try {
