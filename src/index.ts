@@ -1,7 +1,7 @@
 import Fastify from 'fastify'
 import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 import { config } from './config.js'
-import { auth, createUser } from './handler/auth_handler.js'
+import { auth, createUserHandler } from './handler/auth_handler.js'
 import { authSchema, createUserSchema } from './models/dto/index.js'
 
 //ajv options with additionalProperies
@@ -18,7 +18,7 @@ fastify.get('/', async function handler (request, reply) {
 })
 
 // fastify.post('/api/login', schemas.auth , auth)
-fastify.post('/api/users', {schema: createUserSchema}, createUser)
+fastify.post('/api/users', {schema: createUserSchema}, createUserHandler)
 
 // Run the server!
 try {

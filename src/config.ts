@@ -7,6 +7,7 @@ type APIConfig = {
 }
 
 type Config = {
+  secret: string,
   db: DBConfig,
   api: APIConfig
 }
@@ -22,6 +23,7 @@ function envOrThrow(key: string) {
 }
 
 export const config: Config = {
+  secret: envOrThrow("SECRET"),
   db: {
     db_url: envOrThrow("DB_URL")
   },

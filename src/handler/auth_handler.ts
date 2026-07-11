@@ -1,31 +1,32 @@
-import type { FastifyRequest, FastifyReply } from "fastify";
-import type { AuthType, CreateUserType } from "../models/dto/index.js";
+import { type FastifyRequest, type FastifyReply, fastify } from "fastify";
+import type { DTO } from "../models/index.js";
+import { config } from "../config.js";
+import { UserRepository } from "../db/repositories/users.js";
+import * as argon2 from "argon2"
+
+//look for make it part of req.server.knex
+// maybe like plugin
 import knex from '../db.js';
 
 
-export async function auth(req: FastifyRequest<AuthType>, reply: FastifyReply<AuthType>) {
+export async function auth(req: FastifyRequest<DTO.AuthType>, reply: FastifyReply<DTO.AuthType>) {
 
   console.log(req.body)
   reply.code(200).send({token: 'bob'})
 }
 
-//DB interface
 
-interface User {
-  id: string,
-  created_at?: string,
-  updated_at?: string,
-  login: string,
-  name?: string,
-  password: string,
-  phone_number?:string
-}
+export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>, reply: FastifyReply<DTO.CreateUserType>) {
+  const hash = await argon2.hash(req.body.password, {
+    type: argon2.argon2id,
+    secret: Buffer.from(config.secret)
+  })
 
-export async function createUser(req: FastifyRequest<CreateUserType>, reply: FastifyReply<CreateUserType>) {
-  const users = await knex<User>('users').insert(req.body, '*')
-  const createdUser: User = users[0]
-  console.log(users)
+  //make like plugin. Connect UserRepository to fastify plugins
+  const userRepository = new UserRepository(knex)
+  
+  const user = await userRepository.createUser({login: req.body.login, password: hash})
   reply
     .code(200)
-    .send(createdUser)
+    .send(user)
 }

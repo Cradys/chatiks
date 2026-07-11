@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp('updated_at')
     table.string('login', 128).notNullable()
     table.string('name', 128)
-    table.string('password', 32).notNullable()
+    table.binary('password', 32).notNullable()
     table.string('phone_number', 64)
   })
 

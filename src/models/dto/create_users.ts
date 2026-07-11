@@ -5,9 +5,15 @@ import { DTOTypeHelper } from "../helpers/index.js";
 const reqBody = {
   type: 'object',
   properties: {
-    login: { type: 'string' },
-    password: { type: 'string' }
+    login: { type: 'string', maxLength: 128},
+    password: { 
+      type: 'string', 
+      pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])', 
+      maxLength: 32, 
+      minLength: 8
+    }
   },
+  required: ['login', 'password'],
   additionalProperties: false
 } as const satisfies JSONSchema
 
