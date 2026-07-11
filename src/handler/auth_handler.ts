@@ -1,11 +1,9 @@
-import { FastifyRequest, FastifyReply, RouteHandler } from "fastify";
-import type { AuthSchemaType } from "./json_schemas/auth.js";
-import type { CreateUserType } from "./json_schemas/create_users.js";
-import knex from './db.js';
-import { UUID } from "crypto";
+import type { FastifyRequest, FastifyReply } from "fastify";
+import type { AuthType, CreateUserType } from "../models/dto/index.js";
+import knex from '../db.js';
 
 
-export async function auth(req: FastifyRequest<AuthSchemaType>, reply: FastifyReply<AuthSchemaType>) {
+export async function auth(req: FastifyRequest<AuthType>, reply: FastifyReply<AuthType>) {
 
   console.log(req.body)
   reply.code(200).send({token: 'bob'})

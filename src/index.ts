@@ -1,10 +1,8 @@
 import Fastify from 'fastify'
-import { JsonSchemaToTsProvider, FastifyPluginAsyncJsonSchemaToTs } from '@fastify/type-provider-json-schema-to-ts'
-import { schemas } from './schemas.js'
+import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 import { config } from './config.js'
-import { auth, createUser } from './auth_handler.js'
-import { createUserSchema } from './json_schemas/create_users.js'
-import { authSchema } from './json_schemas/auth.js'
+import { auth, createUser } from './handler/auth_handler.js'
+import { authSchema, createUserSchema } from './models/dto/index.js'
 
 //ajv options with additionalProperies
 //no need to write in every schama

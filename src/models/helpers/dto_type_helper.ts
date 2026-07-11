@@ -1,5 +1,5 @@
-import { FromSchema, JSONSchema } from "json-schema-to-ts";
-import { FastifySchema } from "fastify";
+import type { FromSchema, JSONSchema } from "json-schema-to-ts";
+import type { FastifySchema } from "fastify";
 
 type RequiredFastifySchema = {
   [K in keyof FastifySchema]: K extends 'response' ? Record<string, JSONSchema>: JSONSchema 
