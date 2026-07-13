@@ -19,14 +19,16 @@ const reqBody = {
 
 
 const response = {
-  type: 'object',
-  properties: {
-    login: { type: 'string' },
-    name: { type: ['string', 'null'] },
-    created_at: { type: 'string' }
-  },
-  additionalProperties: false
-} as const satisfies JSONSchema
+  200:{
+    type: 'object',
+    properties: {
+      login: { type: 'string' },
+      name: { type: ['string', 'null'] },
+      created_at: { type: 'string' }
+    },
+    additionalProperties: false
+  }
+} as const satisfies Record<any, JSONSchema> 
 
 export const createUserSchema = {
   body: reqBody,
