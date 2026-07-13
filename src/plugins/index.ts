@@ -1,0 +1,1 @@
+export { default as knexPlugin } from './db_lib_plugin.js'

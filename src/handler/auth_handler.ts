@@ -25,8 +25,12 @@ export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>,
   //make like plugin. Connect UserRepository to fastify plugins
   const userRepository = new UserRepository(knex)
   
-  const user = await userRepository.createUser({login: req.body.login, password: hash})
+  //const user = await userRepository.createUser({login: req.body.login, password: hash})
   reply
     .code(200)
-    .send(user)
+    .send({
+      login: 'bob',
+      name: null,
+      created_at: Date()
+    })
 }
