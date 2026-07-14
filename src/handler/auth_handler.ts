@@ -13,6 +13,13 @@ export async function auth(req: FastifyRequest<DTO.AuthType>, reply: FastifyRepl
 
 
 export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>, reply: FastifyReply<DTO.CreateUserType>) {
+
+  //make specified error code
+  //now http 500, to be 475
+  if (await req.server.db.userRepository.isUserExistByLogin(req.body.login)) {
+    throw Error('login or password not valid')
+  }
+
   const hash = await argon2.hash(req.body.password, {
     type: argon2.argon2id,
     secret: Buffer.from(config.secret)

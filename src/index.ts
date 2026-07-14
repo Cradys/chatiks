@@ -5,11 +5,14 @@ import { auth, createUserHandler } from './handler/auth_handler.js'
 import { authSchema, createUserSchema } from './models/dto/index.js'
 import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
 
-//ajv options with additionalProperies
-//no need to write in every schama
+//TODO 
+// start using nodemon
+// create custom Error handler with custom errors
+
 export const fastify = Fastify({
   logger: true
-}).withTypeProvider<JsonSchemaToTsProvider>()
+})
+  .withTypeProvider<JsonSchemaToTsProvider>()
 
 fastify.register(knexPlugin)
 fastify.register(repositoriesPlugin)
