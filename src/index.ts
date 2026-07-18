@@ -26,7 +26,7 @@ fastify.get('/', async function handler (request, reply) {
 })
 
 // fastify.post('/api/login', schemas.auth , auth)
-fastify.post('/api/users', {schema: createUserSchema}, createUserHandler)
+fastify.post('/api/users', {schema: createUserSchema, config: {jwt: config.jwt, pass_secret: config.secret}}, createUserHandler)
 
 // Run the server!
 try {

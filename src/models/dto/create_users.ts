@@ -22,9 +22,7 @@ const response = {
   200:{
     type: 'object',
     properties: {
-      login: { type: 'string' },
-      name: { type: ['string', 'null'] },
-      created_at: { type: 'string' }
+      token: { type: 'string' }
     },
     additionalProperties: false
   }

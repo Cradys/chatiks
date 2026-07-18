@@ -6,10 +6,17 @@ type APIConfig = {
   port: number
 }
 
+type JWTConfig = {
+  secret: string,
+  issuer: string,
+  expiresIn: number
+}
+
 type Config = {
   secret: string,
   db: DBConfig,
-  api: APIConfig
+  api: APIConfig,
+  jwt: JWTConfig
 }
 
 process.loadEnvFile()
@@ -29,5 +36,10 @@ export const config: Config = {
   },
   api: {
     port: Number(envOrThrow("PORT"))
+  },
+  jwt: {
+    secret: envOrThrow("JWT_SECRET"),
+    issuer: envOrThrow("JWT_ISSUER"),
+    expiresIn: Number(envOrThrow("EXPIRES_IN"))
   }
 }
