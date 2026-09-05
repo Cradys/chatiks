@@ -16,7 +16,8 @@
     "fastify-plugin": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "knex": "^3.2.10",
-    "pg": "^8.22.0"
+    "pg": "^8.22.0",
+    "tsx": "^4.22.4"
   },
   "devDependencies": {
     "@fastify/type-provider-json-schema-to-ts": "^5.0.0",
@@ -24,7 +25,6 @@
     "@types/node": "^25.9.3",
     "json-schema-to-ts": "^3.1.1",
     "nodemon": "^3.1.14",
-    "tsx": "^4.22.4",
     "typescript": "^7.0.2"
   }
 }

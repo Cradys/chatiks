@@ -1,6 +1,6 @@
 import { JSONSchema } from "json-schema-to-ts"
 import { FastifySchema } from "fastify"
-import { CreateMethodType } from "../helpers/dto_type_helper.js"
+import { DTOTypeHelper } from "../helpers/index.js";
 
 const authBody = {
   type: 'object',
@@ -26,4 +26,4 @@ export const authSchema = {
   response: authRes
 } as const satisfies FastifySchema
 
-export type AuthType = CreateMethodType<typeof authSchema>
+export type AuthType = DTOTypeHelper<typeof authSchema>

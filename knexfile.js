@@ -12,7 +12,6 @@ export default {
     migrations: {
       directory: './migrations',
       tableName: "knex_migrations",
-      schemaName: "knex",
       extension: 'ts'
     }
   },
