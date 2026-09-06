@@ -1,5 +1,6 @@
 type DBConfig = {
-  db_url: string
+  db_url: string,
+  client: string
 }
 
 type APIConfig = {
@@ -13,7 +14,6 @@ type JWTConfig = {
 }
 
 type Config = {
-  secret: string,
   db: DBConfig,
   api: APIConfig,
   jwt: JWTConfig
@@ -30,9 +30,9 @@ function envOrThrow(key: string) {
 }
 
 export const config: Config = {
-  secret: envOrThrow("SECRET"),
   db: {
-    db_url: envOrThrow("DB_URL")
+    db_url: envOrThrow("DB_URL"),
+    client: envOrThrow("CLIENT")
   },
   api: {
     port: Number(envOrThrow("PORT"))

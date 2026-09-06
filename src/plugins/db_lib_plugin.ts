@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import fp from 'fastify-plugin'
 import knex, { type Knex } from 'knex'
+import { config } from '../config.js'
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -9,12 +10,11 @@ declare module 'fastify' {
 }
 
 async function knexPlugin(fastify: FastifyInstance) {
-  const config: Knex.Config = {
-    client: 'pg',
-    connection: process.env.DB_URL,
-  }
 
-  const knexInstance = knex(config)
+  const knexInstance = knex({
+    client: config.db.client,
+    connection: config.db.db_url,
+  })
 
   fastify.decorate('knex', knexInstance)
 
@@ -25,4 +25,4 @@ async function knexPlugin(fastify: FastifyInstance) {
 
 }
 
-export default fp(knexPlugin)
+export default fp(knexPlugin, {name: 'knexPlugin'})

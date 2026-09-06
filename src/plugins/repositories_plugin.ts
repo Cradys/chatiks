@@ -11,7 +11,7 @@ declare module 'fastify' {
 }
 
 async function repositoriesPlugin(fastify: FastifyInstance) {
-  
+
   const userRepository = new UserRepository(fastify.knex)
 
   fastify.decorate('db', {
@@ -19,4 +19,4 @@ async function repositoriesPlugin(fastify: FastifyInstance) {
   })
 }
 
-export default fp(repositoriesPlugin)
+export default fp(repositoriesPlugin, {dependencies: ['knexPlugin']})

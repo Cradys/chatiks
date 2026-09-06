@@ -1,9 +1,9 @@
 import Fastify from 'fastify'
-import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 import { config } from './config.js'
 import { auth, createUserHandler } from './handler/auth_handler.js'
 import { authSchema, createUserSchema } from './models/dto/index.js'
 import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
+import type { AuthType } from './models/dto/index.js'
 
 //TODO 
 // start using nodemon
@@ -12,7 +12,6 @@ import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
 export const fastify = Fastify({
   logger: true
 })
-  .withTypeProvider<JsonSchemaToTsProvider>()
 
 fastify.register(knexPlugin)
 fastify.register(repositoriesPlugin)
