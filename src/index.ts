@@ -3,7 +3,8 @@ import { config } from './config.js'
 import { auth, createUserHandler } from './handler/auth_handler.js'
 import { authSchema, createUserSchema } from './models/dto/index.js'
 import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
-import type { AuthType } from './models/dto/index.js'
+import { test_sse } from './handler/sse_test_handler.js'
+import { fastifySSE } from '@fastify/sse'
 
 //TODO 
 // start using nodemon
@@ -13,8 +14,9 @@ export const fastify = Fastify({
   logger: true
 })
 
-fastify.register(knexPlugin)
-fastify.register(repositoriesPlugin)
+await fastify.register(knexPlugin)
+await fastify.register(repositoriesPlugin)
+await fastify.register(fastifySSE)
 
 
 fastify.post('/auth', {schema: authSchema}, auth)
@@ -25,7 +27,9 @@ fastify.get('/', async function handler (request, reply) {
 })
 
 // fastify.post('/api/login', schemas.auth , auth)
-fastify.post('/api/users', {schema: createUserSchema, config: {jwt: config.jwt, pass_secret: config.secret}}, createUserHandler)
+fastify.post('/api/users', {schema: createUserSchema, config: {jwt: config.jwt}}, createUserHandler)
+
+fastify.get('/sse', {sse: 'only'}, test_sse)
 
 // Run the server!
 try {

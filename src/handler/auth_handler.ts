@@ -9,8 +9,7 @@ type AuthRouteConfig = {
     secret: string;
     expiresIn: number;
     issuer: string;
-  };
-  pass_secret: string
+  }
 }
 
 export const auth: RouteHandler<DTO.AuthType> = async (req, reply) => {
@@ -26,7 +25,7 @@ export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>,
   if (await req.server.db.userRepository.isUserExistByLogin(req.body.login)) {
     throw Error('login or password not valid')
   }
-  const config = reply.routeOptions.config
+  const config: AuthRouteConfig = reply.routeOptions.config
 
 
   const hash = await argon2.hash(req.body.password, {
