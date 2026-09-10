@@ -8,7 +8,9 @@
   "main": "/src/index.ts",
   "scripts": {
     "server": "npx tsc && node dist/index.js",
-    "migrate:latest": "npx tsx ./node_modules/knex/bin/cli.js migrate:latest"
+    
+    "migrate:latest": "npx tsx ./node_modules/knex/bin/cli.js migrate:latest",
+    "migrate:rollback": "npx tsx ./node_modules/knex/bin/cli.js migrate:rollback"
   },
   "dependencies": {
     "@fastify/sse": "^0.6.0",
