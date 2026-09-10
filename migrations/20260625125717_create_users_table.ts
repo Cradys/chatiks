@@ -34,6 +34,6 @@ export async function up(knex: Knex): Promise<void> {
 
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('users')
-  await knex.schema.raw('DROP FUNCTION IF EXISTS users.update_updated_at_column CASCADE;')
+  await knex.schema.raw('DROP FUNCTION IF EXISTS public.update_updated_at_column RESTRICT;')
 }
 

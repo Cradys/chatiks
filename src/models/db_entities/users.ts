@@ -7,3 +7,5 @@ export interface User {
   password: string,
   phone_number?:string | null
 }
+
+export type CreateDBUserType = Omit<User, 'id' | 'created_at' | 'updated_at'>

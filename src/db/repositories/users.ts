@@ -1,23 +1,19 @@
 import type { Knex } from "knex"
 import type { Entities } from "../../models/index.js"
 
-type User = Entities.User
-type CreateDBUserType = Omit<Entities.User, 'id' | 'created_at'>
-
 
 export class UserRepository {
 
-  constructor(private knex: Knex) {
+  constructor(private readonly knex: Knex) {
   }
 
-  async createUser(data: CreateDBUserType): Promise<User> {
-    const [user] = await this.knex<User>('users').insert(data, '*')
-    
+  async createUser(data: Entities.User.CreateDBUserType ): Promise<Entities.User.User> {
+    const [user] = await this.knex<Entities.User.User>('users').insert(data, '*')
     return user
   }
 
   async isUserExistByLogin(login: string): Promise<boolean> {
-    const user = await this.knex<User>('users').select('id').where('login', login).first()
+    const user = await this.knex<Entities.User.User>('users').select('id').where('login', login).first()
 
     if (!user) { //user not found
       return false

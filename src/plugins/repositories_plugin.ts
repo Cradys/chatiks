@@ -1,11 +1,13 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from "fastify";
 import { UserRepository } from "../db/repositories/users.js";
+import { MessageRepository } from '../db/repositories/messages.js';
 
 declare module 'fastify' {
    interface FastifyInstance {
     db: {
-      userRepository: UserRepository
+      userRepository: UserRepository,
+      messageRepository: MessageRepository
     }
    }
 }
@@ -13,9 +15,11 @@ declare module 'fastify' {
 async function repositoriesPlugin(fastify: FastifyInstance) {
 
   const userRepository = new UserRepository(fastify.knex)
+  const messageRepository = new MessageRepository(fastify.knex)
 
   fastify.decorate('db', {
-    userRepository: userRepository
+    userRepository: userRepository,
+    messageRepository: messageRepository
   })
 }
 
