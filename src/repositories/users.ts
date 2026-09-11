@@ -1,5 +1,5 @@
 import type { Knex } from "knex"
-import type { Entities } from "../../models/index.js"
+import type { Entities } from "../models/index.js"
 
 
 export class UserRepository {
