@@ -2,7 +2,7 @@ import { FastifySchema } from "fastify";
 import { JSONSchema } from "json-schema-to-ts"
 import { DTOTypeHelper } from "../helpers/index.js";
 
-const reqBody = {
+const body = {
   type: 'object',
   properties: {
     login: { type: 'string', maxLength: 128},
@@ -18,19 +18,20 @@ const reqBody = {
 } as const satisfies JSONSchema
 
 
-const response = {
+const res = {
   200:{
     type: 'object',
     properties: {
       token: { type: 'string' }
     },
+    required: ['token'],
     additionalProperties: false
   }
 } as const satisfies Record<any, JSONSchema> 
 
 export const createUserSchema = {
-  body: reqBody,
-  response: response
+  body: body,
+  response: res
 } as const satisfies FastifySchema
 
 export type CreateUserType = DTOTypeHelper<typeof createUserSchema>;

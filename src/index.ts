@@ -1,7 +1,7 @@
 import Fastify from 'fastify'
 import { config } from './config.js'
 import { auth, createUserHandler } from './handler/auth_handler.js'
-import { authSchema, createUserSchema } from './models/dto/index.js'
+import { DTO } from "./models/index.js"
 import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
 import { test_sse } from './handler/sse_test_handler.js'
 import { fastifySSE } from '@fastify/sse'
@@ -19,7 +19,7 @@ await fastify.register(repositoriesPlugin)
 await fastify.register(fastifySSE)
 
 
-fastify.post('/auth', {schema: authSchema}, auth)
+fastify.post('/auth', {schema: DTO.authSchema}, auth)
 
 // Declare a route
 fastify.get('/', async function handler (request, reply) {
@@ -27,7 +27,12 @@ fastify.get('/', async function handler (request, reply) {
 })
 
 // fastify.post('/api/login', schemas.auth , auth)
-fastify.post('/api/users', {schema: createUserSchema, config: {jwt: config.jwt}}, createUserHandler)
+fastify.post('/api/users', {schema: DTO.createUserSchema, config: {jwt: config.jwt}}, createUserHandler)
+
+//TODO handlers
+fastify.get('/api/chats/:chat_id', {schema: DTO.getChatSchema}, ()=>{})
+fastify.get('/api/chats', {schema: DTO.listChatsSchema}, ()=>{})
+fastify.post('/api/chats', {schema: DTO.createChatSchema}, ()=>{})
 
 fastify.get('/sse', {sse: 'only'}, test_sse)
 

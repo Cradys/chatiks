@@ -21,6 +21,13 @@ type Config = {
 
 process.loadEnvFile()
 
+/*
+TODO
+config as plugin 
+https://github.com/fastify/env-schema + https://www.npmjs.com/package/dotenv
+example - https://www.nazarboyko.com/articles/building-production-apis-with-nodejs-and-fastify#config-as-a-plugin
+*/
+
 function envOrThrow(key: string) {
   const value = process.env[key];
   if (!value) {

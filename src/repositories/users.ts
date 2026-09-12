@@ -7,7 +7,7 @@ export class UserRepository {
   constructor(private readonly knex: Knex) {
   }
 
-  async createUser(data: Entities.User.CreateDBUserType ): Promise<Entities.User.User> {
+  async create(data: Entities.User.CreateDBUserType ): Promise<Entities.User.User> {
     const [user] = await this.knex<Entities.User.User>('users').insert(data, '*')
     return user
   }

@@ -33,7 +33,7 @@ export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>,
   })
   
   console.log(hash, '\n', hash.length)
-  const user = await req.server.db.userRepository.createUser({login: req.body.login, password: hash})
+  const user = await req.server.db.userRepository.create({login: req.body.login, password: hash})
   
   const token = await makeJWT(user.id, config.jwt.secret, config.jwt.issuer, config.jwt.expiresIn)
 

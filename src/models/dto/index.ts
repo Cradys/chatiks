@@ -1,2 +1,5 @@
 export { authSchema, type AuthType }  from "./auth.js"
 export { createUserSchema, type CreateUserType} from "./create_users.js"
+export { createChatSchema, type CreateChatType } from "./create_chat.js"
+export { getChatSchema, type GetChatType } from "./get_chat.js" 
+export { listChatsSchema, type ListChatsType } from "./list_chats.js"
