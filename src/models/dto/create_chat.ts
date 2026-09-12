@@ -10,7 +10,8 @@ const body = {
       type: 'array',
       items: {
         type: 'string'
-      }
+      },
+      minItems: 2
     },
   },
   required: ['type', 'user_ids'],
@@ -21,9 +22,9 @@ const res = {
   200:{
     type: 'object',
     properties: {
-      chat_id: { type: 'string' }
+      id: { type: 'string' }
     },
-    required: ['chat_id'],
+    required: ['id'],
     additionalProperties: false
   } 
 } as const satisfies Record<any, JSONSchema>

@@ -3,7 +3,7 @@ import type { Chats } from "./chats.js"
 
 export interface Message {
   id: string,
-  created_at?: string,
+  created_at: string,
   updated_at?: string | null,
   text: string,
   chat_id: Chats['id'],

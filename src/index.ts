@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import { config } from './config.js'
 import { auth, createUserHandler } from './handler/auth_handler.js'
+import { createChat, getChat, listChats} from './handler/chats_handler.js'
 import { DTO } from "./models/index.js"
 import { knexPlugin, repositoriesPlugin } from './plugins/index.js'
 import { test_sse } from './handler/sse_test_handler.js'
@@ -30,9 +31,9 @@ fastify.get('/', async function handler (request, reply) {
 fastify.post('/api/users', {schema: DTO.createUserSchema, config: {jwt: config.jwt}}, createUserHandler)
 
 //TODO handlers
-fastify.get('/api/chats/:chat_id', {schema: DTO.getChatSchema}, ()=>{})
-fastify.get('/api/chats', {schema: DTO.listChatsSchema}, ()=>{})
-fastify.post('/api/chats', {schema: DTO.createChatSchema}, ()=>{})
+fastify.get('/api/chats/:id', {schema: DTO.getChatSchema}, getChat)
+fastify.get('/api/chats', {schema: DTO.listChatsSchema}, listChats)
+fastify.post('/api/chats', {schema: DTO.createChatSchema}, createChat)
 
 fastify.get('/sse', {sse: 'only'}, test_sse)
 

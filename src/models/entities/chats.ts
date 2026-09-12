@@ -2,7 +2,7 @@ import type { User } from "./users.js"
 
 export interface Chats {
   id: string,
-  created_at?: string,
+  created_at: string,
   updated_at?: string | null,
   type: 'direct' | 'group'
 }

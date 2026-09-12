@@ -5,9 +5,9 @@ import { DTOTypeHelper } from "../helpers/index.js";
 const params = {
   type: 'object',
   properties: {
-    chat_id: { type: 'string' },
+    id: { type: 'string' },
   },
-  required: ['chat_id'],
+  required: ['id'],
   additionalProperties: false
 } as const satisfies JSONSchema
 
@@ -15,9 +15,9 @@ const res = {
   200:{
     type: 'object',
     properties: {
-      chat_id: { type: 'string' },
+      id: { type: 'string' },
       created_at: { type: 'string' },
-      updated_at: { type: 'string' },
+      updated_at: { type: ['string', 'null'] },
       type: { type: 'string', enum: ['direct', 'group'] },
       user_ids: { 
         type: 'array',
@@ -26,7 +26,7 @@ const res = {
         }
       }
     },
-    required: ['chat_id', 'type', 'user_ids'],
+    required: ['id', 'type', 'user_ids'],
     additionalProperties: false 
   } 
 } as const satisfies Record<any, JSONSchema>

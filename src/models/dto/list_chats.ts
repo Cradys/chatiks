@@ -5,26 +5,27 @@ import { DTOTypeHelper } from "../helpers/index.js";
 const query = {
   type: 'object',
   properties: {
+    user_id: { type: 'string' },
     type: { type: 'string', enum: ['direct', 'group'] },
     limit: { type: 'string' },
     offset: { type: 'string' }
   },
-  required: [],
+  required: ['user_id'],
   additionalProperties: false
 } as const satisfies JSONSchema
 
 const res = {
-  200:{
+  200: {
     type: 'array',
     items: {
       type: 'object',
       properties: {
-        chat_id: { type: 'string' },
+        id: { type: 'string' },
         created_at: { type: 'string' },
-        updated_at: { type: 'string' },
+        updated_at: { type: ['string', 'null'] },
         type: { type: 'string', enum: ['direct', 'group'] },
       },
-      required: ['chat_id', 'type'],
+      required: ['id', 'type', 'created_at'],
       additionalProperties: false
     }
   } 
