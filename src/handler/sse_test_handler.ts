@@ -1,4 +1,5 @@
 import type { RouteHandler } from "fastify"
+import type { Message } from "../models/entities/index.js" 
 
 export const test_sse: RouteHandler = async(req, reply) => {
   reply.sse.keepAlive()
@@ -9,17 +10,14 @@ export const test_sse: RouteHandler = async(req, reply) => {
   // Check if keepAlive was called
   console.log('Keep alive status:', reply.sse.shouldKeepAlive) // true
 
-  // Set up periodic updates
-  const interval = setInterval(async () => {
-    if (reply.sse.isConnected) {
-      await reply.sse.send({ data: 'ping' })
-    } else {
-      clearInterval(interval)
-    }
-  }, 1000)
+  const listener = function(message: Message.Message) {
+    reply.sse.send({data: message})
+  }
+
+  req.server.message_emitter.on((req.params as {chat_id: string}).chat_id, listener)
 
   reply.sse.onClose(() => {
-    clearInterval(interval)
+    req.server.message_emitter.off((req.params as {chat_id: string}).chat_id, listener)
     console.log('Connection closed')
   })
 }

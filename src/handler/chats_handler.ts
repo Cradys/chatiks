@@ -1,4 +1,4 @@
-import { type FastifyRequest, type FastifyReply, type RouteHandler } from "fastify";
+import { type FastifyRequest, type FastifyReply } from "fastify";
 import type { DTO } from "../models/index.js";
 
 
@@ -8,7 +8,7 @@ export async function createChat(req: FastifyRequest<DTO.CreateChatType>, reply:
   }
 
   if (req.body.type === 'direct' && req.body.user_ids.length > 2) {
-    throw new Error("Direct chat must have only to members")
+    throw new Error("Direct chat must have only two members")
   }
 
   const chat = await req.server.db.chatRepository.create(req.body)

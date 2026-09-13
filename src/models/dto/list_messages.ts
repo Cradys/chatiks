@@ -5,12 +5,11 @@ import { DTOTypeHelper } from "../helpers/index.js";
 const query = {
   type: 'object',
   properties: {
-    user_id: { type: 'string' },
-    type: { type: 'string', enum: ['direct', 'group'] },
+    chat_id: { type: 'string' },
     limit: { type: 'integer', default: 30, minimum: 1, maximum: 100 },
     offset: { type: 'integer', default: 0, minimum: 1, maximum: 100 }
   },
-  required: ['user_id'],
+  required: ['chat_id'],
   additionalProperties: false
 } as const satisfies JSONSchema
 
@@ -23,17 +22,18 @@ const res = {
         id: { type: 'string' },
         created_at: { type: 'string' },
         updated_at: { type: ['string', 'null'] },
-        type: { type: 'string', enum: ['direct', 'group'] },
+        text: { type: 'string' },
+        sender_id: { type: 'string' }
       },
-      required: ['id', 'type', 'created_at'],
+      required: ['id', 'text', 'created_at'],
       additionalProperties: false
     }
   } 
 } as const satisfies Record<any, JSONSchema>
 
-export const listChatsSchema = {
+export const listMessagesSchema = {
   querystring: query,
   response: res
 } as const satisfies FastifySchema
 
-export type ListChatsType = DTOTypeHelper<typeof listChatsSchema>
+export type ListMessagesType = DTOTypeHelper<typeof listMessagesSchema>

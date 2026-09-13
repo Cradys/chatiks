@@ -6,9 +6,9 @@ export class MessageRepository {
 
   constructor(private readonly knex: Knex) {}
 
-  async create(data: Entities.Message.CreateDBMessageType): Promise<string> {
-    const [message] = await this.knex<Entities.Message.Message>('messages').insert(data, 'id')
-    return message.id
+  async create(data: Entities.Message.CreateDBMessageType): Promise<Entities.Message.Message> {
+    const [message] = await this.knex<Entities.Message.Message>('messages').insert(data, '*')
+    return message
   }
 
   async getByChatId(chat_id: string, limit=20, offset=0): Promise<Entities.Message.Message[]> {
