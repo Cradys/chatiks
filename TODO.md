@@ -2,16 +2,8 @@
 
 ## Активні TODO
 
-- SSE live-трансляція повідомлень (крок 1, single-process) — механізм перевірено на тестовому роуті, перенести в "бойовий" код:
-  - Перенести логіку з `test_sse` (`src/handler/sse_test_handler.ts`) у нормальний хендлер, напр. `getChatSse` в `chats_handler.ts`, роут `GET /api/chats/:id/sse`.
-  - Типізація `chat_id` з `params` через DTO/schema замість тимчасового `as {chat_id: string}`.
-  - Перевірка, що користувач, який відкриває SSE, дійсно учасник цього чату (авторизація підписки).
-  - Прибрати тестовий роут `/sse/:chat_id` і `sse_test_handler.ts`, коли "бойовий" варіант запрацює.
-  - Подумати над форматом даних, що йдуть у `reply.sse.send({data: message})` — чи `message` як є з БД, чи окремий DTO для SSE-payload.
-- DTO + роути для повідомлень: `POST /api/messages`, `GET /api/messages`.
+- SSE live-трансляція повідомлень по клієнту а не по чату
 - Кастомні класи помилок (`DatabaseError extends Error`, з `cause`) + `fastify.setErrorHandler` (зараз хендлери просто `throw new Error(...)`).
-- Перевірити консистентність `User['id']`/`Chats['id']` типізації по всьому коду.
-- Дрібне: чи винести `as const satisfies JSONSchema`/`Record<any, JSONSchema>` через generic-хелпер (`defineSchema<const T>`) — рішення відкладено.
 
 ## Відкладені TODO
 

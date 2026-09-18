@@ -25,4 +25,4 @@ async function repositoriesPlugin(fastify: FastifyInstance) {
   })
 }
 
-export default fp(repositoriesPlugin, {dependencies: ['knexPlugin']})
+export default fp(repositoriesPlugin, {name: 'repositoriesPlugin', dependencies: ['knexPlugin']})

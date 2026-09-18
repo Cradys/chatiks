@@ -3,5 +3,4 @@ https://raw.githubusercontent.com/diraneyya/claude-teach/refs/heads/master/CLAUD
 Прочитай це перед тим як почати навчати
 
 Я хочу створити власний чат для користувачів. Використовуючи nodeJS, knex, fastify, postgresql
-В проєкті не планую використовувати web socket.
 Ціль проекту - навчитись шукати інформацію по бібліотеках та використовувати занання на практиці.

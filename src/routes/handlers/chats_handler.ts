@@ -1,5 +1,5 @@
 import { type FastifyRequest, type FastifyReply } from "fastify";
-import type { DTO } from "../models/index.js";
+import type { DTO } from "../../models/index.js";
 
 
 export async function createChat(req: FastifyRequest<DTO.CreateChatType>, reply: FastifyReply<DTO.CreateChatType>) {

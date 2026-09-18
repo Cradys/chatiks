@@ -1,5 +1,5 @@
 import { type FastifyRequest, type FastifyReply, type RouteHandler } from "fastify";
-import type { DTO } from "../models/index.js";
+import type { DTO } from "../../models/index.js";
 import jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 import * as argon2 from "argon2"
