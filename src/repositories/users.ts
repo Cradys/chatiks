@@ -12,12 +12,8 @@ export class UserRepository {
     return user
   }
 
-  async isUserExistByLogin(login: string): Promise<boolean> {
-    const user = await this.knex<Entities.User.User>('users').select('id').where('login', login).first()
-
-    if (!user) { //user not found
-      return false
-    }
-    return true
+  async getUserByLogin(login: string): Promise<Entities.User.User | undefined> {
+    const user = await this.knex<Entities.User.User>('users').select().where('login', login).first()
+    return user
   }
 }

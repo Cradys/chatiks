@@ -7,7 +7,7 @@ type APIConfig = {
   port: number
 }
 
-type JWTConfig = {
+export type JWTConfig = {
   secret: string,
   issuer: string,
   expiresIn: number

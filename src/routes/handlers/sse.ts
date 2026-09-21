@@ -3,6 +3,7 @@ import type { Message } from "../../models/entities/index.js"
 import type { DTO } from "../../models/index.js";
 
 export async function sseHandler(req: FastifyRequest<DTO.SSEChatsType>, reply: FastifyReply) {
+  const payload = await req.server.verifyToken(req.headers.authorization)
 
   reply.sse.sendHeaders()
   reply.sse.keepAlive()
@@ -15,10 +16,10 @@ export async function sseHandler(req: FastifyRequest<DTO.SSEChatsType>, reply: F
     reply.sse.send({data: message})
   }
 
-  req.server.event_emitter.on((req.params as {id: string}).id, listener)
+  req.server.event_emitter.on(payload.user_id, listener)
 
   reply.sse.onClose(() => {
-    req.server.event_emitter.off((req.params as {id: string}).id, listener)
+    req.server.event_emitter.off(payload.user_id, listener)
     console.log('Connection closed')
   })
 }

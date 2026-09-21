@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import fp from 'fastify-plugin'
-import { sseHandler } from './handlers/sse_handler.js'
+import { sseHandler } from './handlers/sse.js'
 import { DTO } from "../models/index.js"
 
 
@@ -15,14 +15,14 @@ async function sse(fastify: FastifyInstance) {
       compiledSerializer = fastify.serializerCompiler({
         schema: DTO.sseChatsSchema.response[200],
         method: "GET",
-        url: '/api/chats/:id/sse'
+        url: '/api/sse'
       })
     }
     return compiledSerializer(data)
   }
 
 
-  fastify.get('/api/chats/:id/sse', {sse: {
+  fastify.get('/api/sse', {sse: {
     kind: 'only',
     serializer: message_serializer
   }}, sseHandler)

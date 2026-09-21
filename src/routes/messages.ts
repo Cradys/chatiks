@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import fp from 'fastify-plugin'
 import { DTO } from "../models/index.js"
-import { createMessage, listMessages } from './handlers/messages_handler.js'
+import { createMessage, listMessages } from './handlers/messages.js'
 
 
 async function messages(fastify: FastifyInstance) {

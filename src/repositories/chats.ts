@@ -44,6 +44,15 @@ export class ChatRepository {
     }
   }
 
+  async getMembersByChat(chat_id: string, user_id: string): Promise<Entities.ChatsToUsers.ChatsToUsers['user_id'][]> {
+    const members = await this.knex<Entities.ChatsToUsers.ChatsToUsers>('chats_to_users')
+      .pluck('user_id')
+      .where({chat_id: chat_id})
+      .andWhereNot({user_id: user_id})
+    
+    return members
+  }
+
   async listChats(user_id: string, limit=30, offset=0): Promise<
   (Pick<Entities.ChatsToUsers.ChatsToUsers, 'created_at' | 'updated_at'> 
     & Pick<Entities.Chats.Chats, 'id' | 'type'>)[]> {

@@ -3,6 +3,8 @@ import type { DTO } from "../../models/index.js";
 
 
 export async function createChat(req: FastifyRequest<DTO.CreateChatType>, reply: FastifyReply<DTO.CreateChatType>) {
+  const payload = await req.server.verifyToken(req.headers.authorization)
+
   if (req.body.user_ids.length < 2) {
     throw new Error("Chat must have minimum 2 members")
   }
@@ -16,11 +18,15 @@ export async function createChat(req: FastifyRequest<DTO.CreateChatType>, reply:
 }
 
 export async function getChat(req: FastifyRequest<DTO.GetChatType>, reply: FastifyReply<DTO.GetChatType>) {
+  const payload = await req.server.verifyToken(req.headers.authorization)
+
   const chat = await req.server.db.chatRepository.getOne(req.params.id)
   reply.code(200).send(chat)
 }
 
 export async function listChats(req: FastifyRequest<DTO.ListChatsType>, reply: FastifyReply<DTO.ListChatsType>) {
+  const payload = await req.server.verifyToken(req.headers.authorization)
+
   const chats = await req.server.db.chatRepository.listChats(req.query.user_id)
 
   reply.code(200).send(chats)
