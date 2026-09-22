@@ -3,10 +3,10 @@ import type { DTO } from "../../models/index.js";
 import jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 import * as argon2 from "argon2"
-import { JWTConfig } from "../../config.js";
+import { type Config } from "../../config.js";
 
 type AuthRouteConfig = {
-  jwt: JWTConfig
+  jwt: Config['jwt']
 }
 
 export async function auth(req: FastifyRequest<DTO.CreateUserType>, reply: FastifyReply<DTO.CreateUserType, any, any, any, AuthRouteConfig>) {

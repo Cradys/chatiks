@@ -31,7 +31,7 @@ export class ChatRepository {
     if (!chat) {
       throw new Error('chat does not exist')
     }
-    
+    // TODO create new repository for ChatsToUsers and class-service for operations with several tables (with transactions)
     const members = await this.knex<Entities.ChatsToUsers.ChatsToUsers>('chats_to_users')
       .select('user_id')
       .where({chat_id: chat_id})
@@ -43,7 +43,7 @@ export class ChatRepository {
       user_ids: members.map(m => m.user_id)
     }
   }
-
+  // TODO create new repository for ChatsToUsers and class-service for operations with several tables (with transactions)
   async getMembersByChat(chat_id: string, user_id: string): Promise<Entities.ChatsToUsers.ChatsToUsers['user_id'][]> {
     const members = await this.knex<Entities.ChatsToUsers.ChatsToUsers>('chats_to_users')
       .pluck('user_id')

@@ -23,7 +23,7 @@ const res = {
         id: { type: 'string' },
         created_at: { type: 'string' },
         updated_at: { type: ['string', 'null'] },
-        type: { type: 'string', enum: ['direct', 'group'] },
+        type: { type: 'string', enum: ['direct', 'group', 'channel'] },
       },
       required: ['id', 'type', 'created_at'],
       additionalProperties: false

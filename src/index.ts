@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import { config } from './config.js'
-import { knexPlugin, repositoriesPlugin, eventEmmiterPlugin, verifyToken } from './plugins/index.js'
+import { knexPlugin, repositoriesPlugin, eventEmmiterPlugin, verifyToken, feedPoller } from './plugins/index.js'
 import { fastifySSE } from '@fastify/sse'
 import { authRoutes, chatsRoutes, messagesRoutes, sseRoutes } from './routes/index.js'
 
@@ -17,6 +17,7 @@ await fastify.register(repositoriesPlugin)
 await fastify.register(eventEmmiterPlugin)
 await fastify.register(verifyToken, config.jwt)
 await fastify.register(fastifySSE)
+await fastify.register(feedPoller, config.rss)
 await fastify.register(authRoutes)
 await fastify.register(chatsRoutes)
 await fastify.register(messagesRoutes)

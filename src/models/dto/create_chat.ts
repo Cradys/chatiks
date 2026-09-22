@@ -5,7 +5,7 @@ import { DTOTypeHelper } from "../helpers/index.js";
 const body = {
   type: 'object',
   properties: {
-    type: { type: 'string', enum: ['direct', 'group'] },
+    type: { type: 'string', enum: ['direct', 'group', 'channel'] },
     user_ids: { 
       type: 'array',
       items: {

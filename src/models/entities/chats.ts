@@ -4,7 +4,7 @@ export interface Chats {
   id: string,
   created_at: string,
   updated_at?: string | null,
-  type: 'direct' | 'group'
+  type: 'direct' | 'group' | 'channel'
 }
 
 

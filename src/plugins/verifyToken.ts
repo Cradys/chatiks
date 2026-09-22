@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import fp from 'fastify-plugin'
 import jwt from 'jsonwebtoken'
-import { JWTConfig } from "../config.js";
+import { type Config } from "../config.js";
 
 
 declare module 'fastify' {
@@ -10,7 +10,7 @@ declare module 'fastify' {
   }
 }
 
-async function verifyToken(fastify: FastifyInstance, opts: JWTConfig) {
+async function verifyToken(fastify: FastifyInstance, opts: Config['jwt']) {
   fastify.decorate('verifyToken', verifyToken)
 
   async function verifyToken(rawToken: string | undefined): Promise<jwt.JwtPayload & {user_id: string}> {
