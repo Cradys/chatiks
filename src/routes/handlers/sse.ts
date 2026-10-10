@@ -12,7 +12,6 @@ export async function sseHandler(req: FastifyRequest<DTO.SSEChatsType>, reply: F
   console.log('Keep alive status:', reply.sse.shouldKeepAlive) // true
 
   const listener = function(message: Message.Message) {
-    console.log(message)
     reply.sse.send({data: message})
   }
 
