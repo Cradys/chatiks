@@ -8,12 +8,12 @@
   "main": "/src/index.ts",
   "scripts": {
     "server": "npx tsc && node dist/index.js",
-    
     "migrate:latest": "npx tsx ./node_modules/knex/bin/cli.js migrate:latest",
     "migrate:rollback": "npx tsx ./node_modules/knex/bin/cli.js migrate:rollback"
   },
   "dependencies": {
     "@fastify/sse": "^0.6.0",
+    "amqplib": "^2.2.0",
     "argon2": "^0.44.0",
     "fastify": "^5.8.5",
     "fastify-plugin": "^6.0.0",
@@ -23,6 +23,7 @@
     "tsx": "^4.22.4"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.8",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.9.3",
     "json-schema-to-ts": "^3.1.1",

@@ -1,22 +1,29 @@
-type DBConfig = {
-  db_url: string,
-  client: string
-}
+export namespace Config {
+  export type DBConfig = {
+    db_url: string,
+    client: string
+  }
 
-type APIConfig = {
-  port: number
-}
+  export type APIConfig = {
+    port: number
+  }
 
-export type JWTConfig = {
-  secret: string,
-  issuer: string,
-  expiresIn: number
-}
+  export type JWTConfig = {
+    secret: string,
+    issuer: string,
+    expiresIn: number
+  }
 
-type Config = {
-  db: DBConfig,
-  api: APIConfig,
-  jwt: JWTConfig
+  export type RabbitMQConfig = {
+    rabbit_url: string
+  }
+
+  export type Root = {
+    db: DBConfig,
+    api: APIConfig,
+    jwt: JWTConfig,
+    rabbit: RabbitMQConfig
+  }
 }
 
 process.loadEnvFile()
@@ -36,7 +43,7 @@ function envOrThrow(key: string) {
   return value;
 }
 
-export const config: Config = {
+export const config: Config.Root = {
   db: {
     db_url: envOrThrow("DB_URL"),
     client: envOrThrow("CLIENT")
@@ -48,5 +55,8 @@ export const config: Config = {
     secret: envOrThrow("JWT_SECRET"),
     issuer: envOrThrow("JWT_ISSUER"),
     expiresIn: Number(envOrThrow("EXPIRES_IN"))
+  },
+  rabbit: {
+    rabbit_url: `amqp://${envOrThrow("RABBITMQ_USER")}:${envOrThrow("RABBITMQ_PASSWORD")}@localhost:5672`
   }
 }
