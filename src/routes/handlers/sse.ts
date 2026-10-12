@@ -11,14 +11,26 @@ export async function sseHandler(req: FastifyRequest<DTO.SSEChatsType>, reply: F
   // Check if keepAlive was called
   console.log('Keep alive status:', reply.sse.shouldKeepAlive) // true
 
-  const listener = function(message: Message.Message) {
-    reply.sse.send({data: message})
-  }
 
-  req.server.event_emitter.on(payload.user_id, listener)
+  const channel = await req.server.rbbt_conn.createChannel()
+
+  const q = await channel.assertQueue('', {
+    exclusive: true,
+    autoDelete: true
+  })
+
+  await channel.bindQueue(q.queue, 'messages', payload.user_id)
+
+  channel.consume(q.queue, (msg) => {
+    if (!msg) return
+    const message = JSON.parse(msg.content.toString())
+    reply.sse.send({data: message})
+    channel.ack(msg)
+  })
+
 
   reply.sse.onClose(() => {
-    req.server.event_emitter.off(payload.user_id, listener)
+    channel.close()
     console.log('Connection closed')
   })
 }

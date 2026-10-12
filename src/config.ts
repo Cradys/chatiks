@@ -26,7 +26,12 @@ export namespace Config {
   }
 }
 
-process.loadEnvFile()
+
+try {
+  process.loadEnvFile()
+} catch {
+  // .env файл не знайдено — покладаємось на змінні середовища, передані ззовні (Docker, CI тощо)
+}
 
 /*
 TODO
@@ -57,6 +62,6 @@ export const config: Config.Root = {
     expiresIn: Number(envOrThrow("EXPIRES_IN"))
   },
   rabbit: {
-    rabbit_url: `amqp://${envOrThrow("RABBITMQ_USER")}:${envOrThrow("RABBITMQ_PASSWORD")}@localhost:5672`
+    rabbit_url: `amqp://${envOrThrow("RABBITMQ_USER")}:${envOrThrow("RABBITMQ_PASSWORD")}@${envOrThrow("RABBITMQ_HOST")}:5672`
   }
 }

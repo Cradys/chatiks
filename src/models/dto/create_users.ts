@@ -22,12 +22,13 @@ const res = {
   200:{
     type: 'object',
     properties: {
-      token: { type: 'string' }
+      token: { type: 'string' },
+      id: { type: 'string' }
     },
-    required: ['token'],
+    required: ['token', 'id'],
     additionalProperties: false
   }
-} as const satisfies Record<any, JSONSchema> 
+} as const satisfies Record<any, JSONSchema>
 
 export const createUserSchema = {
   body: body,

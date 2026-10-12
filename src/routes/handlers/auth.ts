@@ -18,7 +18,7 @@ export async function auth(req: FastifyRequest<DTO.CreateUserType>, reply: Fasti
   }
   
   const token = await makeJWT(user.id, config.jwt.secret, config.jwt.issuer, config.jwt.expiresIn, user.id)
-  reply.code(200).send({token: token})
+  reply.code(200).send({token: token, id: user.id})
 }
 
 
@@ -40,7 +40,7 @@ export async function createUserHandler(req: FastifyRequest<DTO.CreateUserType>,
 
   reply
     .code(200)
-    .send({token: token})
+    .send({token: token, id: user.id})
 }
 
 

@@ -25,6 +25,44 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  app1:
+    container_name: chatiks-app1
+    build: .
+    depends_on:
+      - database
+      - rabbitmq
+    environment:
+      - PORT=8080
+      - DB_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}?sslmode=disable
+      - CLIENT=pg
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_HOST=rabbitmq
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ISSUER=${JWT_ISSUER}
+      - EXPIRES_IN=${EXPIRES_IN}
+    ports:
+      - 8080:8080
+  
+  app2:
+    container_name: chatiks-app2
+    build: .
+    depends_on:
+      - database
+      - rabbitmq
+    environment:
+      - PORT=8081
+      - DB_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}?sslmode=disable
+      - CLIENT=pg
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_HOST=rabbitmq
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ISSUER=${JWT_ISSUER}
+      - EXPIRES_IN=${EXPIRES_IN}
+    ports:
+      - 8081:8081
+
 volumes:
   pg-data:
   rabbitmq-data:

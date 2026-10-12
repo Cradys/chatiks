@@ -9,15 +9,17 @@ export async function createMessage(req: FastifyRequest<DTO.CreateMessageType>, 
 
   const members = await req.server.db.chatRepository.getMembersByChat(message.chat_id, payload.user_id)
 
-  members.forEach((member) => {
-    req.server.event_emitter.emit(member, message)
-  })
-    
+  const channel = await req.server.rbbt_conn.createChannel()
   
-
   reply.code(200).send({
     id: message.id
   })
+  
+  members.forEach((member) => {
+    channel.publish('messages', member, Buffer.from(JSON.stringify(message)))
+  })
+  
+  await channel.close()
 }
 
 export async function listMessages(req: FastifyRequest<DTO.ListMessagesType>, reply: FastifyReply<DTO.ListMessagesType>) {
