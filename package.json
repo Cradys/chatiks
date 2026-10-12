@@ -12,6 +12,7 @@
     "migrate:rollback": "npx tsx ./node_modules/knex/bin/cli.js migrate:rollback"
   },
   "dependencies": {
+    "@fastify/cors": "^11.3.1",
     "@fastify/sse": "^0.6.0",
     "amqplib": "^2.2.0",
     "argon2": "^0.44.0",

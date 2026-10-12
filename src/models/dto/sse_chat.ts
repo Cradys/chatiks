@@ -19,9 +19,10 @@ const res = {
       created_at: { type: 'string' },
       // updated_at: { type: ['string', 'null'] },
       text: { type: 'string' },
-      sender_id: { type: 'string' }
+      sender_id: { type: 'string' },
+      chat_id: { type: 'string' }
     },
-    required: ['id', 'text', 'created_at'],
+    required: ['id', 'text', 'created_at', 'chat_id'],
     additionalProperties: false
   } 
 } as const satisfies Record<any, JSONSchema>

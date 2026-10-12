@@ -2,10 +2,11 @@ import Fastify from 'fastify'
 import { config } from './config.js'
 import { knexPlugin, repositoriesPlugin, verifyToken, rabbitMQPlugin } from './plugins/index.js'
 import { fastifySSE } from '@fastify/sse'
+import cors from '@fastify/cors'
 import { authRoutes, chatsRoutes, messagesRoutes, sseRoutes } from './routes/index.js'
 import { error } from 'node:console'
 
-//TODO 
+//TODO
 // start using nodemon
 // create custom Error handler with custom errors
 
@@ -13,6 +14,7 @@ export const fastify = Fastify({
   logger: true
 })
 
+await fastify.register(cors, { origin: true })
 await fastify.register(knexPlugin)
 await fastify.register(repositoriesPlugin)
 await fastify.register(verifyToken, config.jwt)

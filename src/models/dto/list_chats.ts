@@ -8,7 +8,7 @@ const query = {
     user_id: { type: 'string' },
     type: { type: 'string', enum: ['direct', 'group'] },
     limit: { type: 'integer', default: 30, minimum: 1, maximum: 100 },
-    offset: { type: 'integer', default: 0, minimum: 1, maximum: 100 }
+    offset: { type: 'integer', default: 0, minimum: 0, maximum: 100 }
   },
   required: ['user_id'],
   additionalProperties: false

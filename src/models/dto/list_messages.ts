@@ -7,7 +7,7 @@ const query = {
   properties: {
     chat_id: { type: 'string' },
     limit: { type: 'integer', default: 30, minimum: 1, maximum: 100 },
-    offset: { type: 'integer', default: 0, minimum: 1, maximum: 100 }
+    offset: { type: 'integer', default: 0, minimum: 0, maximum: 100 }
   },
   required: ['chat_id'],
   additionalProperties: false
